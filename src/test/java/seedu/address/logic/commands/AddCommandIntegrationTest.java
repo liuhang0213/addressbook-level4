@@ -43,7 +43,7 @@ public class AddCommandIntegrationTest {
         Person personInList = new Person(model.getAddressBook().getPersonList().get(0));
         assertCommandFailure(prepareCommand(personInList, model), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
-
+    
     /**
      * Generates a new {@code AddCommand} which upon execution, adds {@code person} into the {@code model}.
      */
