@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import java.util.Set;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import javafx.beans.property.ObjectProperty;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -22,6 +24,8 @@ public interface ReadOnlyPerson {
     Address getAddress();
     ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
+    ObjectProperty<Remark> remarkProperty();
+    Remark getRemark();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
