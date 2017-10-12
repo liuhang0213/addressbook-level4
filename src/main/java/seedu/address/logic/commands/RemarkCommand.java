@@ -13,7 +13,7 @@ public class RemarkCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "remark";
     public static final String COMMAND_ALIAS = "re";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits the remark for a person"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": edits the remark for a person"
             + "Parameters: INDEX (must be a positive integer), \n"
             + PREFIX_REMARK + "REMARK "
             + "Example: " + COMMAND_WORD + " 1"
