@@ -35,7 +35,7 @@ import seedu.address.storage.asana.storage.AsanaCredentials;
 /**
  * Adds a new meeting to the address book.
  */
-public class AddMeetingCommand extends Command {
+public class AddMeetingCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "addMeeting";
     public static final String COMMAND_ALIAS = "am";
@@ -97,7 +97,7 @@ public class AddMeetingCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
 
         ArrayList<InternalId> internalIds = null;
@@ -201,7 +201,7 @@ public class AddMeetingCommand extends Command {
             try {
                 internalIds.add(model.visibleToInternalId(visibleId));
             } catch (IllegalValueException e) {
-                throw new IllegalValueException(String.format(MESSAGE_ERROR_INVALID_INDEX, visibleId));
+                throw new IllegalValueException(String.format(MESSAGE_ERROR_INVALID_INDEX, visibleId.getOneBased()));
             }
         }
         return internalIds;
