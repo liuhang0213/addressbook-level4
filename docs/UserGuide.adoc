@@ -454,6 +454,10 @@ e.g.`select 2` +
 Can also use shortcut 's'
 * *History* : `history` +
 Can also use shortcut 'h'
+* *Setup Asana* : `setupAsana` +
+Can also use shortcut `sa`
+* *Set Unique Key* : `setKey` +
+Can also use shortcut `sk`
 * *Add Meeting* : `addMeeting` +
 Can also use shortcut `am`
 * *Next Meeting* : `nextMeeting` +
