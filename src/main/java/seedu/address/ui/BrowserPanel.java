@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
@@ -30,6 +31,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String LINKEDIN_SEARCH_PARAM_FIRST_NAME = "&firstName=";
     public static final String LINKEDIN_SEARCH_PARAM_LAST_NAME = "&lastName=";
     public static final String LINKEDIN_URL_SUFFIX = "&origin=FACETED_SEARCH";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) Gecko/20100101 Firefox/7.0.1";
     //@@author martyn-wong
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
@@ -115,7 +117,9 @@ public class BrowserPanel extends UiPart<Region> {
     //@@author
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        WebEngine engine = browser.getEngine();
+        engine.setUserAgent(USER_AGENT);
+        Platform.runLater(() -> engine.load(url));
     }
     /**
      * Loads a default HTML file with a background that matches the general theme.
