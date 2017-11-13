@@ -27,7 +27,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyMeeting;
 import seedu.address.model.ReadOnlyMeetingList;
 import seedu.address.model.UniqueMeetingList;
-import seedu.address.model.UniqueMeetingListTest;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.DuplicateMeetingException;
 import seedu.address.model.exceptions.IllegalIdException;
