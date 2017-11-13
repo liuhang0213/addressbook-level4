@@ -1,6 +1,38 @@
 # liuhang0213
+###### /java/seedu/address/logic/parser/PrefCommandParserTest.java
+``` java
+public class PrefCommandParserTest {
+
+    private PrefCommandParser parser = new PrefCommandParser();
+
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrefCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_tooManyArgs_throwsParseException() {
+        assertParseFailure(parser, "key value a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrefCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_validArgs_returnsPrefCommand() {
+        String prefKey = "AddressBookName";
+        String prefValue = "NewName";
+        PrefCommand expectedPrefCommand =
+                new PrefCommand(prefKey, prefValue);
+        assertParseSuccess(parser, prefKey + " " + prefValue, expectedPrefCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " \n " + prefKey + " \n \t " + prefValue + "  \t", expectedPrefCommand);
+    }
+}
+```
 ###### /java/seedu/address/logic/commands/NextMeetingCommandTest.java
 ``` java
+import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -48,7 +80,7 @@ public class NextMeetingCommandTest {
             expected.append(model.getMeetingList().getUpcomingMeeting().toString());
             assertCommandSuccess(nextMeetingCommand, model, expected.toString(), model);
         } catch (PersonNotFoundException e) {
-            e.printStackTrace();
+            fail("All people should be in the address book.");
         }
     }
 }
@@ -132,37 +164,6 @@ public class PrefCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/PrefCommandParserTest.java
-``` java
-public class PrefCommandParserTest {
-
-    private PrefCommandParser parser = new PrefCommandParser();
-
-    @Test
-    public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrefCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_tooManyArgs_throwsParseException() {
-        assertParseFailure(parser, "key value a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrefCommand.MESSAGE_USAGE));
-    }
-
-    @Test
-    public void parse_validArgs_returnsPrefCommand() {
-        String prefKey = "AddressBookName";
-        String prefValue = "NewName";
-        PrefCommand expectedPrefCommand =
-                new PrefCommand(prefKey, prefValue);
-        assertParseSuccess(parser, prefKey + " " + prefValue, expectedPrefCommand);
-
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n " + prefKey + " \n \t " + prefValue + "  \t", expectedPrefCommand);
-    }
-}
-```
 ###### /java/seedu/address/model/UniqueMeetingListTest.java
 ``` java
 public class UniqueMeetingListTest {
@@ -212,110 +213,6 @@ public class UniqueMeetingListTest {
             return meetings.sorted().get(0);
         }
     }
-}
-```
-###### /java/seedu/address/storage/XmlMeetingListStorageTest.java
-``` java
-
-public class XmlMeetingListStorageTest {
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath(
-            "./src/test/data/XmlMeetingListStorageTest/");
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-
-    @Test
-    public void readMeetingList_nullFilePath_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        readMeetingList(null);
-    }
-
-    private java.util.Optional<ReadOnlyMeetingList> readMeetingList(String filePath) throws Exception {
-        return new XmlMeetingListStorage(filePath).readMeetingList(addToTestDataPathIfNotNull(filePath));
-    }
-
-    private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
-        return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER + prefsFileInTestDataFolder
-                : null;
-    }
-
-    @Test
-    public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readMeetingList("NonExistentFile.xml").isPresent());
-    }
-
-    @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
-
-        thrown.expect(DataConversionException.class);
-        readMeetingList("NotXmlFormatMeetingList.xml");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
-    }
-
-    @Test
-    public void readAndSaveMeetingList_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempMeetingList.xml";
-        UniqueMeetingList original = getTypicalMeetingList();
-        XmlMeetingListStorage xmlMeetingListStorage = new XmlMeetingListStorage(filePath);
-
-        //Save in new file and read back
-        xmlMeetingListStorage.saveMeetingList(original, filePath);
-        ReadOnlyMeetingList readBack = xmlMeetingListStorage.readMeetingList(filePath).get();
-        assertEquals(original, new UniqueMeetingList(readBack));
-
-        /*
-        //Modify data, overwrite exiting file, and read back
-        xmlMeetingListStorage.saveMeetingList(original, filePath);
-        readBack = xmlMeetingListStorage.readMeetingList(filePath).get();
-        assertEquals(original, new UniqueMeetingList(readBack));
-        */
-
-        //Save and read without specifying file path
-        //original.add(new Meeting());
-        xmlMeetingListStorage.saveMeetingList(original); //file path not specified
-        readBack = xmlMeetingListStorage.readMeetingList().get(); //file path not specified
-        assertEquals(original, new UniqueMeetingList(readBack));
-
-    }
-
-    @Test
-    public void saveMeetingList_nullMeetingList_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        saveMeetingList(null, "SomeFile.xml");
-    }
-
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        XmlSerializableMeetingList meetingList = new XmlSerializableMeetingList();
-        thrown.expect(UnsupportedOperationException.class);
-        meetingList.getMeetingList().remove(0);
-    }
-
-    /**
-     * Saves {@code meetingList} at the specified {@code filePath}.
-     */
-    private void saveMeetingList(ReadOnlyMeetingList meetingList, String filePath) {
-        try {
-            new XmlMeetingListStorage(filePath).saveMeetingList(meetingList, addToTestDataPathIfNotNull(filePath));
-        } catch (IOException ioe) {
-            throw new AssertionError("There should not be an error writing to the file.", ioe);
-        }
-    }
-
-    @Test
-    public void saveMeetingList_nullFilePath_throwsNullPointerException() throws IOException {
-        thrown.expect(NullPointerException.class);
-        saveMeetingList(new UniqueMeetingList(), null);
-    }
-
-
 }
 ```
 ###### /java/seedu/address/testutil/MeetingBuilder.java
@@ -377,6 +274,97 @@ public class TypicalMeetings {
 
     public static List<Meeting> getTypicalMeetings() {
         return new ArrayList<>(Arrays.asList(M1));
+    }
+
+
+}
+```
+###### /java/seedu/address/storage/XmlMeetingListStorageTest.java
+``` java
+
+public class XmlMeetingListStorageTest {
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath(
+            "./src/test/data/XmlMeetingListStorageTest/");
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
+
+    @Test
+    public void readMeetingList_nullFilePath_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        readMeetingList(null);
+    }
+
+    private java.util.Optional<ReadOnlyMeetingList> readMeetingList(String filePath) throws Exception {
+        return new XmlMeetingListStorage(filePath).readMeetingList(addToTestDataPathIfNotNull(filePath));
+    }
+
+    private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
+        return prefsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER + prefsFileInTestDataFolder
+                : null;
+    }
+
+    @Test
+    public void read_missingFile_emptyResult() throws Exception {
+        assertFalse(readMeetingList("NonExistentFile.xml").isPresent());
+    }
+
+    @Test
+    public void read_notXmlFormat_exceptionThrown() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readMeetingList("NotXmlFormatMeetingList.xml");
+    }
+
+    @Test
+    public void readAndSaveMeetingList_allInOrder_success() throws Exception {
+        String filePath = testFolder.getRoot().getPath() + "TempMeetingList.xml";
+        UniqueMeetingList original = getTypicalMeetingList();
+        XmlMeetingListStorage xmlMeetingListStorage = new XmlMeetingListStorage(filePath);
+
+        //Save in new file and read back
+        xmlMeetingListStorage.saveMeetingList(original, filePath);
+        ReadOnlyMeetingList readBack = xmlMeetingListStorage.readMeetingList(filePath).get();
+        assertEquals(original, new UniqueMeetingList(readBack));
+
+        //Save and read without specifying file path
+        xmlMeetingListStorage.saveMeetingList(original); //file path not specified
+        readBack = xmlMeetingListStorage.readMeetingList().get(); //file path not specified
+        assertEquals(original, new UniqueMeetingList(readBack));
+
+    }
+
+    @Test
+    public void saveMeetingList_nullMeetingList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        saveMeetingList(null, "SomeFile.xml");
+    }
+
+    @Test
+    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+        XmlSerializableMeetingList meetingList = new XmlSerializableMeetingList();
+        thrown.expect(UnsupportedOperationException.class);
+        meetingList.getMeetingList().remove(0);
+    }
+
+    /**
+     * Saves {@code meetingList} at the specified {@code filePath}.
+     */
+    private void saveMeetingList(ReadOnlyMeetingList meetingList, String filePath) {
+        try {
+            new XmlMeetingListStorage(filePath).saveMeetingList(meetingList, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
+    @Test
+    public void saveMeetingList_nullFilePath_throwsNullPointerException() throws IOException {
+        thrown.expect(NullPointerException.class);
+        saveMeetingList(new UniqueMeetingList(), null);
     }
 
 
