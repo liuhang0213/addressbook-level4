@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalMeetings.getTypicalMeetingList;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -16,7 +15,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
