@@ -323,21 +323,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseIds_validValue_returnsIds() throws Exception {
-        //expected data
-        ArrayList<InternalId> idsExpected = new ArrayList<>();
-        idsExpected.add(new InternalId(Integer.parseInt(VALID_PERSON)));
-
-        //actual data
-        ArrayList<String> idsActual = new ArrayList<>();
-        idsActual.add(VALID_PERSON);
-
-        ArrayList<InternalId> actualIds = ParserUtil.parseIds(idsActual);
-
-        assertEquals(idsExpected, actualIds);
-    }
-
-    @Test
     public void parseAccessCode_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseAccessCode(null);
