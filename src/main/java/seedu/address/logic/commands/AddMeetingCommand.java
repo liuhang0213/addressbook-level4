@@ -195,7 +195,8 @@ public class AddMeetingCommand extends UndoableCommand {
      * @return list of internal ids
      * @throws IllegalValueException when the given visible index is not in the addressbook
      */
-    private ArrayList<InternalId> convertVisibleIdsToInternal(ArrayList<Index> visibleIds) throws IllegalValueException {
+    private ArrayList<InternalId> convertVisibleIdsToInternal(ArrayList<Index> visibleIds)
+            throws IllegalValueException {
         ArrayList<InternalId> internalIds = new ArrayList<>();
         for (Index visibleId : visibleIds) {
             try {
