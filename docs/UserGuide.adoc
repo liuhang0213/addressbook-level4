@@ -65,6 +65,11 @@ image::commandboxhelper.PNG[width="790"]
 
 Format: `help`
 
+[NOTE]
+====
+Fixed Gibberish text on Mac. Credit to @caoliangnus on https://github.com/nus-cs2103-AY1718S1/forum/issues/208[fix].
+====
+
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -406,6 +411,11 @@ image::google-map-example.png[width="790"]
 
 Example of a MapCommand search of Alex Yeoh, index 1 of the list.
 
+[NOTE]
+====
+Fixed gibberish text on Mac. Credit to suggested https://github.com/nus-cs2103-AY1718S1/forum/issues/208[fix].
+====
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -451,6 +461,10 @@ e.g.`select 2` +
 Can also use shortcut 's'
 * *History* : `history` +
 Can also use shortcut 'h'
+* *Setup Asana* : `setupAsana` +
+Can also use shortcut `sa`
+* *Set Unique Key* : `setKey` +
+Can also use shortcut `sk`
 * *Add Meeting* : `addMeeting` +
 Can also use shortcut `am`
 * *Next Meeting* : `nextMeeting` +

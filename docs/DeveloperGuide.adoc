@@ -372,14 +372,49 @@ must be from the address book.
 
 ==== Asana Configuration
 
-===== Implementation of Setup Asana
+*API* : https://asana.com/developers/api-reference/attachments[Asana API]
+
+===== Implementation : Setup Asana
+
+Upon typing the command, setup Asana command is executed.
+
+image::SetUpAsanaCommandSequenceDiagram.png[width="800"]
+_Figure 3.2.2.a: Setup Asana Command sequence diagram_
+
+`setupAsana` will open a new browser window. Upon keying in login credentials, a unique access code is produced.
 
 ===== Design Considerations
 
-===== Implementation of Set unique key
+**Aspect:** Authenticate Asana user +
+**Alternative 1 (current choice):** Open a seperate browser +
+**Pros:** Full compatibility with Asana's web authentication +
+**Cons:** User has to navigate outside the application +
+**Alternative 2:** Use JavaFx web browser +
+**Pros:** Convenient for user as it is within the application +
+**Cons:** Uncertain browser behaviour with Asana web authentication
+
+===== Implementation : Set unique key
+
+Upon typing the command: +
+
+image::SetUniqueKeyClassCommandDiagram.png[width="790"]
+_Figure 3.2.2.b: Set Unique Key Class Command Diagram_
+
+After a new SetUniqueKeyCommand is created as shown in Figure 3.2.2.b +
+a `storeAccessToken` is instantiated. At this stage, an access token +
+is retrieved from Asana and stored temporarily in `Asana Credentials`.
 
 ===== Design Considerations
 
+**Aspect:** Storage of unique key +
+**Alternative 1 (current choice):** Temporary storage of access token +
+**Pros:** Safer as access token is destroyed after closing the application +
+**Cons:** User has to setup Asana each time the application opens +
+**Alternative 2:** Persist access token in system properties file +
+**Pros:** Convenient for user, because user has to only set up Asana once +
+**Cons:** More complex implementation +
+
+** Reason for implementing alternative 1: Lack of time to implement alternative 2
 
 ==== Add Meeting Command
 
@@ -560,7 +595,7 @@ the address book storage and then displayed on `PersonListPanel` on the GUI.
 Sorts and the lists everyone in the address book based on decreasing number of searches.
 
 ==== Implementation
-Each successful `Search` command execution with non-zero search results, activates an update of search count for everyone in search results.+
+Each successful `SearchF` command execution with non-zero search results, activates an update of search count for everyone in search results.+
 [source,java]
 ----
 if (searchResultsCount != NO_RESULTS) {
@@ -720,7 +755,7 @@ Otherwise, users will be notified that specified tags are not used in address bo
 
 === Command: `Search`
 
-`Search` lets users search for contacts in the address book by keywords in their contact details such name, address and telephone number +
+`Search` lets users search for contacts in the address book by keywords in their contact details such as name, address and telephone number +
 The feature is more powerful and useful than find which only searches by name.
 
 ==== Implementation
