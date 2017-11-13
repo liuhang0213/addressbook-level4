@@ -353,6 +353,12 @@ The display type provided is invalid
 ----
 Selected Person: 1
 ----
+** Type and press enter: `choose maps`
+** Expected output:
++
+----
+Selected type maps
+----
 ** Expected behaviour: Return the address of Albert Goh (index 1) in google maps in the browser panel
 +
 image::image38.png[]
@@ -473,7 +479,7 @@ Selected type meeting
 +
 image::image21.png[]
 
-** Type and press enter: `addMeeting on 22/12/2017 from 1400 at NUS Computing about CS2103 Project Meeting with 2`
+** Type and press enter: `addMeeting on 22/12/2018 from 1400 at NUS Computing about gambling with 2`
 ** Expected output:
 +
 ----
@@ -501,10 +507,10 @@ Please enter a date & time that is in the future.
 ** Expected output:
 +
 ----
-Upcoming meeting with Alex Yeoh, Bernice Yu, Charlotte Oliveiro
-Date: 2018/01/01  Time: 00:00:00
-Location: Home
-Notes: New Year Celebration
+Upcoming meeting with David Li
+Date: 2017/12/21  Time: 10:00:00
+Location: NUS Computing
+Notes: life
 ----
 
 === `Other functionalities`
