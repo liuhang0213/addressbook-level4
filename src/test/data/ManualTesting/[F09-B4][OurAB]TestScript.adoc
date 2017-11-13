@@ -287,8 +287,52 @@ Opened help window.
 +
 image::image5.png[]
 
-** Close the window and 
+** Close the window and press the kbd:[F1] key.
+** Expected behaviour: The same help window is opened.
 
-...
+==== [.underline]#History command#
+** Type and press enter: `history`
+** Expected output:
 +
-put your stuff below here
+----
+Entered commands (from most recent to earliest):
+help
+nextMeeting
+addMeeting on 20/10/1995 from 1400 at NUS Computing about <something> with 2
+addMeeting on 3/12/201 from 1400 at NUS Computing about <something> with 2
+----
+
+==== [.underline]#Undo command#
+** Type and press enter: `delete 21`
+** Type and press enter: `undo`
+** Expected output:
++
+----
+Undo success!
+----
+** Expected behaviour: John Smith is back in the address book with updated phone number and email address.
++
+image::image35.png[]
+
+==== [.underline]#Redo command#
+** Type and press enter: `redo`
+** Expected output:
++
+----
+Data has been cleared!
+----
+** Expected behaviour: All persons and meetings in OurAB are deleted.
++
+image::image24.png[]
+
+** Type and press enter: `undo`
+** Expected output:
++
+----
+Undo success!
+----
+** Expected behaviour: Both address book and meeting data are restored.
+
+==== [.underline]#Exit command#
+** Type and press enter: `exit`
+** Expected behaviour: OurAB application exits.
