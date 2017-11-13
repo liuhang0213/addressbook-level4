@@ -1,5 +1,5 @@
 # fongwz
-###### \java\guitests\guihandles\BrowserSelectorCardHandle.java
+###### /java/guitests/guihandles/BrowserSelectorCardHandle.java
 ``` java
 /**
  * Provides a handle to a person card in the person list panel.
@@ -20,7 +20,7 @@ public class BrowserSelectorCardHandle extends NodeHandle<Node> {
     }
 }
 ```
-###### \java\guitests\guihandles\BrowserSettingsSelectorHandle.java
+###### /java/guitests/guihandles/BrowserSettingsSelectorHandle.java
 ``` java
 /**
  * Provides a handle for {@code browserSelectorList} containing the list of {@code BrowserSelectorCard}.
@@ -84,7 +84,7 @@ public class BrowserSettingsSelectorHandle extends NodeHandle<ListView<BrowserSe
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ChooseCommandTest.java
+###### /java/seedu/address/logic/commands/ChooseCommandTest.java
 ``` java
 public class ChooseCommandTest {
     @Rule
@@ -94,11 +94,14 @@ public class ChooseCommandTest {
     public void execute_validArgs_success() {
         assertExecutionSuccess("linkedin");
         assertExecutionSuccess("meeting");
+        assertExecutionSuccess("google");
+        assertExecutionSuccess("maps");
     }
 
     @Test
     public void execute_invalidArgs_failure() {
-        assertExecutionFailure("gibberish", Messages.MESSAGE_INVALID_BROWSER_INDEX);
+        Selection.setPersonSelected();
+        assertExecutionFailure("badargs", Messages.MESSAGE_INVALID_BROWSER_INDEX);
     }
 
     /**
@@ -140,11 +143,11 @@ public class ChooseCommandTest {
     }
 }
 ```
-###### \java\seedu\address\ui\BrowserSettingsSelectorTest.java
+###### /java/seedu/address/ui/BrowserSettingsSelectorTest.java
 ``` java
 public class BrowserSettingsSelectorTest extends GuiUnitTest {
-    private static final JumpToBrowserListRequestEvent JUMP_TO_LINKEDIN_EVENT
-            = new JumpToBrowserListRequestEvent("linkedin");
+    private static final JumpToBrowserListRequestEvent JUMP_TO_LINKEDIN_EVENT =
+            new JumpToBrowserListRequestEvent("linkedin");
 
     private BrowserSettingsSelectorHandle browserSettingsSelectorHandle;
     private SettingsSelector settingsSelector;
@@ -179,7 +182,7 @@ public class BrowserSettingsSelectorTest extends GuiUnitTest {
     }
 }
 ```
-###### \java\seedu\address\ui\CommandBoxTest.java
+###### /java/seedu/address/ui/CommandBoxTest.java
 ``` java
     /**
      * Testing the command box helper
@@ -238,12 +241,13 @@ public class BrowserSettingsSelectorTest extends GuiUnitTest {
         }
     }
 ```
-###### \java\seedu\address\ui\testutil\GuiTestAssert.java
+###### /java/seedu/address/ui/testutil/GuiTestAssert.java
 ``` java
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertBrowserCardEquals(BrowserSelectorCardHandle expectedCard, BrowserSelectorCardHandle actualCard) {
+    public static void assertBrowserCardEquals(BrowserSelectorCardHandle expectedCard,
+                                               BrowserSelectorCardHandle actualCard) {
         assertEquals(expectedCard.getBrowserTypeName(), actualCard.getBrowserTypeName());
     }
 

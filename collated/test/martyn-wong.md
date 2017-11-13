@@ -1,5 +1,5 @@
 # martyn-wong
-###### \java\seedu\address\logic\commands\MapCommandTest.java
+###### /java/seedu/address/logic/commands/MapCommandTest.java
 ``` java
 
 /**
@@ -112,7 +112,7 @@ public class MapCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SearchCommandTest.java
+###### /java/seedu/address/logic/commands/SearchCommandTest.java
 ``` java
 
 /**
@@ -199,7 +199,7 @@ public class SearchCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\parser\MapCommandParserTest.java
+###### /java/seedu/address/logic/parser/MapCommandParserTest.java
 ``` java
 
 public class MapCommandParserTest {
