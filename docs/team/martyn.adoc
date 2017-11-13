@@ -191,6 +191,12 @@ the google maps on the browser panel
 ---
 
 #End of Extract#
----
+
+=== Enhancement Proposed:
+
+* Using google calendar api (discarded)
 
 === Other contributions
+
+* Integrate and deconflict display modes into choose command
+* Updated error handling for ChooseCommand
