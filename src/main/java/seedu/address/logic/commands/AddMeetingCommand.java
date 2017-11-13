@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -160,7 +161,10 @@ public class AddMeetingCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddMeetingCommand // instanceof handles nulls
-                && toAdd.equals(((AddMeetingCommand) other).toAdd));
+                && Objects.equals(this.location, ((AddMeetingCommand) other).location))
+                && this.notes.equals(((AddMeetingCommand) other).notes)
+                && this.localDateTime.equals(((AddMeetingCommand) other).localDateTime)
+                && this.idList.equals(((AddMeetingCommand) other).idList);
     }
 
     /**
