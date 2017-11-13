@@ -87,13 +87,11 @@ public class AddMeetingCommand extends UndoableCommand {
         toAdd = new Meeting(meeting);
     }
 
-    public AddMeetingCommand(LocalDateTime localDateTime, String location, String notes, ArrayList<Index> idList)
-            throws IllegalValueException {
+    public AddMeetingCommand(LocalDateTime localDateTime, String location, String notes, ArrayList<Index> idList) {
         this.localDateTime = localDateTime;
         this.location = location;
         this.notes = notes;
         this.idList = idList;
-
     }
 
     @Override

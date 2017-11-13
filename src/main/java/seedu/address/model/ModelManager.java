@@ -273,7 +273,6 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author liuhang0213
     @Override
     public InternalId visibleToInternalId(Index visibleId) throws IllegalValueException {
-        logger.info("I'M HERE");
         List<ReadOnlyPerson> lastShownList = getFilteredPersonList();
 
         if (visibleId.getZeroBased() >= lastShownList.size()) {
