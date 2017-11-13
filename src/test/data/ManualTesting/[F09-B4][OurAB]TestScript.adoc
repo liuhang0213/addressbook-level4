@@ -108,6 +108,187 @@ image::image26.png[]
 ** Expected behaviour: A new person is added and the profile picture of that person is the default silhouette photo. Note that the person is added to the bottom of the list.
 +
 image::image9.png[]
+
+*Edit user Email Address*
+
+** Type and press enter: `edit 1 e/e0005091@u.nus.edu`
+** Expected behaviour: Person #1 should have the CS2103 profile photo
++
+image::image29.png[]
+
+*Change the style of default profile photos*
+
+** Type and press enter: `pref dp face`
+** Wait about 3 to 5 seconds for the application to download images
+** Type and press enter: `list`
+** Expected behaviour: Persons with default silhouette photos previously should now have cartoon faces as default profile photos instead. Not all photos might be updated depending on the network condition.
++
+image::image30.png[]
+
+==== [.underline]#Add command#
+
+** Type and press enter: `add n/John Smith p/12341234 e/jsmith@gmail.com a/10 Kent Ridge Crescent, 119260 t/friends`
+** Expected output:
++
+----
+New person added: John Smith Phone: 12341234 Email: jsmith@gmail.com Address: 10 Kent Ridge Crescent, 119260 Tags: [friends]
+----
+
+** Expected behaviour: A new person named 'John Smith' is added to the end of the address book
++
+image::image31.png[]
+
+==== [.underline]#Edit command#
+
+** Type and press enter: `edit 21 p/43214321 e/johns@gmail.com`
+** Expected output:
++
+----
+Edited Person: Stanley Tay Phone: 43214321 Email: johns@gmail.com Address: Blk 443 Ang Mo Kio Avenue 10, #12-05 Tags: [colleagues][friends]
+----
+** Expected behaviour: The phone number and email address for Stanley Tay is updated:
++
+image::image32.png[]
+
+==== [.underline]#List command#
+
+** Type and press enter: `list`
+** Expected output:
++
+----
+Listed all persons in alphabetical order
+----
+** Expected behaviour: All persons in the address book are listed in alphabetical order.
++
+image::image33.png[]
+
+==== [.underline]#List By Most Searched command#
+*Sorts by Search frequency*
+
+** Type and press enter: `search bernice`
+** Expected output:
++
+----
+1 persons listed!
+----
+** Expected behaviour: Bernice Yu is listed.
++
+image::image11.png[]
+
+** Type and press enter: `listMostSearched`
+** Expected output:
++
+----
+Listed all persons sorted by frequency of search
+----
+** Expected behaviour: Bernice Yu should be the first person listed.
++
+image::image34.png[]
+
+==== [.underline]#Search command#
+*Search by Name*
+
+** Type and press enter: `search Alex`
+** Expected output:
++
+----
+1 persons listed!
+----
+** Expected behaviour: Returns all contacts with the name "Alex"
++
+image::image12.png[]
+
+*Search by Address*
+
+** Type and press enter: `search Serangoon`
+** Expected output:
++
+----
+2 persons listed!
+----
+** Expected behaviour: Returns all contacts with the address "Serangoon"
++
+image::image3.png[]
+
+*Search by Telephone Number*
+
+** Type and press enter: `search 99347654`
+** Expected output:
++
+----
+1 persons listed!
+----
+** Expected behaviour: Returns all contacts with the number "9934754"
++
+image::image7.png[]
+
+*Search by Email Address*
+
+** Type and press enter: `search berniceyu@example.com`
+** Expected output:
++
+----
+1 persons listed!
+----
+** Expected behaviour: Returns all contacts with the email "berniceyu@example.com"
++
+image::image11.png[]
+
+*Parameter does not exist*
+
+** Type and press enter: `search a`
+** Expected output:
++
+----
+0 persons listed!
+----
+** Expected behaviour: Return no contacts.
+
+==== [.underline]#Delete command#
+
+** Type and press enter: `list`
+** Type and press enter: `delete 23`
+** Expected output:
++
+----
+Deleted Person: Yong Kong Kang Phone: 98664345 Email: kongkang@mail.com Address: Blk 127 HDB Toa Payoh, #10-10 Tags: [friends]
+----
+** Expected behaviour: The person Yong Kong Kang is deleted from the address book.
+
+==== [.underline]#Delete Tag command#
+
+** Type and press enter: `deleteTag hello`
+** Expected output:
++
+----
+Tag(s) not in address book; Nothing to delete
+----
+
+** Type and press enter: deleteTag friends
+** Expected output:
++
+----
+Tag(s) successfully deleted
+----
+
+
+
+
+=== `Other functionalities`
+
+==== [.underline]#Help command#
+** Type and press enter: `help`
+** Expected output:
++
+----
+Opened help window.
+----
+** Expected behaviour: The help window will be opened.
++
+image::image5.png[]
+
+** Close the window and 
+
 ...
 +
 put your stuff below here
