@@ -271,8 +271,241 @@ Tag(s) not in address book; Nothing to delete
 Tag(s) successfully deleted
 ----
 
+=== `Display Window functionalities`
 
+==== [.underline]#Choose command#
+** Type and press enter: `select 1`
+** Expected output:
++
+----
+Selected Person: 1
+----
+** Type and press enter: `choose linkedin`
+** Expected output:
++
+----
+Selected type linkedin
+----
+** Log into your linkedin account.
+** Expected behaviour: Albert Goh search is displayed in the main display window.
++
+image::image36.png[]
 
+** Type and press enter: `select 68`
+** Expected output:
++
+----
+The person index provided is invalid
+----
+
+** Type and press enter: `choose google`
+** Expected output:
++
+----
+Selected type google
+----
+** Expected behaviour: Google search for Albert Goh is displayed in the main display window.
++
+image::image37.png[]
+
+** Type and press enter: `choose maps`
+** Expected output:
++
+----
+Selected type maps
+----
+** Expected behaviour: Google Maps display for Albert Goh's address is displayed in the main display window.
++
+image::image39.png[]
+
+** Type and press enter: `choose meeting`
+** Expected output:
++
+----
+Selected type meeting
+----
+** Expected behaviour: Meeting list is displayed in the main display window.
++
+image::image40.png[]
+
+** Type and press enter: `choose #(*%`
+** Expected output:
++
+----
+Invalid arguments provided.
+choose : selects the type of display in the main browser window.
+Parameters: <TYPE>
+Example: choose linkedin
+----
+
+** Type and press enter: `choose linkednotin`
+** Expected output:
++
+----
+The display type provided is invalid
+----
+
+==== [.underline]#Map command#
+
+** Type and press enter: `select 1`
+** Expected output:
++
+----
+Selected Person: 1
+----
+** Expected behaviour: Return the address of Albert Goh (index 1) in google maps in the browser panel
++
+image::image38.png[]
+
+** Type and press enter: `map 20`
+** Expected output:
++
+----
+Map Display Successful! Address of: Samuel Ong Phone: 94326172 Email: xxxONSENxxx@hotmail.com Address: 820 Thompson Rd, #03-03 Tags: [colleagues]
+----
+** Expected behaviour: Return the address of Samuel Ong (index 20) in google maps in the browser panel
++
+image::image27.png[]
+
+** Type and press enter: `map 66`
+** Expected output:
++
+----
+The person index provided in invalid
+----
+** Expected behaviour: Returns an error as index is out of bounds.
+
+==== [.underline]#Asana Configuration#
+
+[NOTE]
+For optimal performance, please set Chrome as your default browser.
+
+*Setting Up*
+
+** Type and press enter: `setupAsana`
+** Expected output:
++
+----
+1. Login & allow OurAB to access your Asana account
+2. Copy from the site, the code: DIGIT/ALPHANUMERICS
+Example: 0/123a689ny8912h324h78s
+3. Type: setKey 0/ALPHANUMERICS
+----
+** Expected behaviour: A new browser window will be opened with Asana login page opened.
+
+** Login to Asana.
++
+----
+Email Address : f09b4.ourab@gmail.com
+Password : f09b4ourab
+----
+
+[NOTE]
+You may login to your own account as well. The access token will be
+destroyed as soon as you close OurAB application.
+
+image::image15.png[]
+
+** Click on `Allow`
+** Copy the code from the redirect page
++
+image::image28.png[]
+
+** Type and press enter: `setKey [paste code here]`
+** Expected output:
++
+----
+Asana setup successful!
+----
+
+[NOTE]
+If the message Please try again with a valid code from Asana is seen after pasting the right code, the access code has probably expired. Start from step 1 again.
+
+*Test with inaccurate access keys*
+
+** Type and press enter: `setKey 123`
+** Expected output:
++
+----
+Please make sure the access code you have copied follows the format:
+DIGIT/ALPHANUMERICS
+----
+
+** Type and press enter: setKey 0/12345e6789
+** Expected output:
++
+----
+Please try again with a valid code from Asana
+----
+
+==== [.underline]#Add Meeting command#
+
+[NOTE]
+Since multiple groups might be testing and using this Asana account at the same time, please think of an agenda for your meeting which you will be able to identify later.
+
+** Switch off your connection to the internet.
+** Type and press enter: `addMeeting on 21/12/2017 from 1000 at NUS Computing about life with 4`
+** Expected output:
++
+----
+New meeting added locally!
+Connect to the internet to post a meeting on Asana.
+----
+
+** Connect to the internet.
+** Type and press enter: `addMeeting on 22/12/2017 from 1400 at NUS Computing about gambling with 2`
+** Expected output:
++
+----
+New meeting added locally and to Asana!
+----
+** Expected behaviour: Open Asana web/mobile app and login to see your meeting added to Asana.
++
+image::image22.png[]
+
+** Type and press enter: `choose meeting`
+** Expected output:
++
+----
+Selected type meeting
+----
+** Expected behaviour: New meeting added should be in the meeting display window.
++
+image::image21.png[]
+
+** Type and press enter: `addMeeting on 22/12/2017 from 1400 at NUS Computing about CS2103 Project Meeting with 2`
+** Expected output:
++
+----
+This meeting already exists in the address book
+----
+
+** Type and press enter: `addMeeting on 3/12/201 from 1400 at NUS Computing about doodling with 2`
+** Expected output:
++
+----
+Please enter a date & time in the format dd/mm/yyyy & hhmm respectively!
+----
+
+** Type and press enter: `addMeeting on 20/10/1995 from 1400 at NUS Computing about peeing with 2`
+** Expected output:
++
+----
+Please enter a date & time that is in the future.
+----
+
+==== [.underline]#Next Meeting command#
+*To view the next upcoming meeting*
+
+** Type and press enter: `nextMeeting`
+** Expected output:
++
+----
+Upcoming meeting with Alex Yeoh, Bernice Yu, Charlotte Oliveiro
+Date: 2018/01/01  Time: 00:00:00
+Location: Home
+Notes: New Year Celebration
+----
 
 === `Other functionalities`
 
