@@ -187,15 +187,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> ids} into a {@code Set<InternalIds>}.
+     * Parses {@code Collection<String> ids} into a {@code ArrayList<Integers>}.
      */
-    public static ArrayList<InternalId> parseIds(Collection<String> ids) throws IllegalValueException {
+    public static ArrayList<Integer> parseIds(Collection<String> ids) throws IllegalValueException {
         requireNonNull(ids);
-        final ArrayList<InternalId> idSet = new ArrayList<>();
+        final ArrayList<Integer> idSet = new ArrayList<>();
 
         try {
             for (String id : ids) {
-                idSet.add(new InternalId(Integer.parseInt(id)));
+                idSet.add(Integer.parseInt(id));
             }
         } catch (NumberFormatException nfe) {
             throw new IllegalValueException("Please make sure teh person id is a valid number");

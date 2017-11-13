@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Meeting;
@@ -24,6 +27,7 @@ import seedu.address.model.exceptions.DuplicateMeetingException;
 
 import seedu.address.model.exceptions.IllegalIdException;
 
+import seedu.address.model.person.InternalId;
 import seedu.address.storage.asana.storage.AsanaCredentials;
 
 //@@author Sri-vatsa
@@ -61,6 +65,7 @@ public class AddMeetingCommand extends Command {
             + "Setup Asana to post the meeting on Asana.";
     public static final String MESSAGE_SUCCESS_LOCAL = "New meeting added locally!\n"
             + "Connect to the internet and setup Asana to post a meeting on Asana.";
+    public static final String MESSAGE_ERROR_INVALID_INDEX = "Person with index %1$d not found.\n";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
     public static final String MESSAGE_INVALID_ID = "Please input a valid person id!";
     public static final String MESSAGE_TEMPLATE = COMMAND_WORD + " "
@@ -71,16 +76,38 @@ public class AddMeetingCommand extends Command {
             + PREFIX_PERSON + "PERSON ...";
 
 
-    private final Meeting toAdd;
+    private Meeting toAdd;
+    private LocalDateTime localDateTime;
+    private String location;
+    private String notes;
+    private ArrayList<Integer> idList;
 
     public AddMeetingCommand(ReadOnlyMeeting meeting) {
         toAdd = new Meeting(meeting);
     }
 
+    public AddMeetingCommand(LocalDateTime localDateTime, String location, String notes, ArrayList<Integer> idList)
+            throws IllegalValueException {
+        this.localDateTime = localDateTime;
+        this.location = location;
+        this.notes = notes;
+        this.idList = idList;
+
+    }
 
     @Override
     public CommandResult execute() throws CommandException {
         requireNonNull(model);
+
+        ArrayList<InternalId> internalIds = null;
+        try {
+            internalIds = convertVisibleIdsToInternal(this.idList);
+        } catch (IllegalValueException e) {
+            throw new CommandException(String.format(e.getMessage()));
+        }
+
+        toAdd = new Meeting(localDateTime, location, notes, internalIds);
+
         AsanaCredentials asanaCredentials = new AsanaCredentials();
 
         //if there is internet connection && asana is configured
@@ -156,5 +183,19 @@ public class AddMeetingCommand extends Command {
                 return false;
             }
         }
+    }
+
+    private ArrayList<InternalId> convertVisibleIdsToInternal(ArrayList<Integer> visibleIds) throws IllegalValueException {
+        ArrayList<InternalId> internalIds = new ArrayList<>();
+        for (int visibleId : visibleIds) {
+            try {
+                internalIds.add(model.visibleToInternalId(visibleId));
+            } catch (IllegalValueException e) {
+                throw new IllegalValueException(String.format(MESSAGE_ERROR_INVALID_INDEX, visibleId));
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+        return internalIds;
     }
 }

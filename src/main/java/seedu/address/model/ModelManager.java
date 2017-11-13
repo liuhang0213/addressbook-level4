@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_DUPLICATE_PERSON;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -14,10 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.MeetingListChangedEvent;
 import seedu.address.commons.events.model.PersonChangedEvent;
 import seedu.address.commons.events.ui.MapPersonEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.exceptions.DuplicateMeetingException;
 import seedu.address.model.exceptions.IllegalIdException;
@@ -265,6 +268,19 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //=========== Util methods =============================================================
+
+    //@@author liuhang0213
+    @Override
+    public InternalId visibleToInternalId(int visibleId) throws IllegalValueException {
+        logger.info("I'M HERE");
+        List<ReadOnlyPerson> lastShownList = getFilteredPersonList();
+
+        if (visibleId >= lastShownList.size()) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        ReadOnlyPerson person = lastShownList.get(visibleId);
+        return person.getInternalId();
+    }
 
     @Override
     public boolean equals(Object obj) {
