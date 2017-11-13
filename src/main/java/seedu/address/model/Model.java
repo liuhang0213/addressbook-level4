@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.exceptions.DuplicateMeetingException;
@@ -34,7 +35,7 @@ public interface Model {
      * @param visibleId
      * @return InternalId of the person
      */
-    InternalId visibleToInternalId(int visibleId) throws IllegalValueException;
+    InternalId visibleToInternalId(Index visibleId) throws IllegalValueException;
     //@@author
 
     /** Deletes the given person. */

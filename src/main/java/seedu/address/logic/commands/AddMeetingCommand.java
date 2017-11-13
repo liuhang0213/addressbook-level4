@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -80,13 +81,13 @@ public class AddMeetingCommand extends Command {
     private LocalDateTime localDateTime;
     private String location;
     private String notes;
-    private ArrayList<Integer> idList;
+    private ArrayList<Index> idList;
 
     public AddMeetingCommand(ReadOnlyMeeting meeting) {
         toAdd = new Meeting(meeting);
     }
 
-    public AddMeetingCommand(LocalDateTime localDateTime, String location, String notes, ArrayList<Integer> idList)
+    public AddMeetingCommand(LocalDateTime localDateTime, String location, String notes, ArrayList<Index> idList)
             throws IllegalValueException {
         this.localDateTime = localDateTime;
         this.location = location;
@@ -185,15 +186,22 @@ public class AddMeetingCommand extends Command {
         }
     }
 
-    private ArrayList<InternalId> convertVisibleIdsToInternal(ArrayList<Integer> visibleIds) throws IllegalValueException {
+    //@@author liuhang0213
+
+    /**
+     * Converts a list of visible indexes used in meeting to internal indexes
+     *
+     * @param visibleIds
+     * @return list of internal ids
+     * @throws IllegalValueException when the given visible index is not in the addressbook
+     */
+    private ArrayList<InternalId> convertVisibleIdsToInternal(ArrayList<Index> visibleIds) throws IllegalValueException {
         ArrayList<InternalId> internalIds = new ArrayList<>();
-        for (int visibleId : visibleIds) {
+        for (Index visibleId : visibleIds) {
             try {
                 internalIds.add(model.visibleToInternalId(visibleId));
             } catch (IllegalValueException e) {
                 throw new IllegalValueException(String.format(MESSAGE_ERROR_INVALID_INDEX, visibleId));
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             }
         }
         return internalIds;

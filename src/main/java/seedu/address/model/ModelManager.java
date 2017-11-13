@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.MeetingListChangedEvent;
 import seedu.address.commons.events.model.PersonChangedEvent;
@@ -271,14 +272,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author liuhang0213
     @Override
-    public InternalId visibleToInternalId(int visibleId) throws IllegalValueException {
+    public InternalId visibleToInternalId(Index visibleId) throws IllegalValueException {
         logger.info("I'M HERE");
         List<ReadOnlyPerson> lastShownList = getFilteredPersonList();
 
-        if (visibleId >= lastShownList.size()) {
+        if (visibleId.getZeroBased() >= lastShownList.size()) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        ReadOnlyPerson person = lastShownList.get(visibleId);
+        ReadOnlyPerson person = lastShownList.get(visibleId.getZeroBased());
         return person.getInternalId();
     }
 
